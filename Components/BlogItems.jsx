@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 
 const BlogItems = ({ title, description, category, image }) => {
+  
   return (
     <div className='max-w-[330px] sm:max-w-[300px] bg-white border border-black hover:shadow-[-7px_7px_0px_#000000] hover:translate-y-[-2px] transition duration-300 ease-in-out'>
       {/* Image section */}
