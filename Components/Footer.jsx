@@ -12,9 +12,9 @@ const Footer = () => {
             <p className='text-sm text-white'>All rights reserved. Copyright @blogger</p>
             {/* --- Links --- */}
             <div className='flex'>
-                <Link href="https://www.facebook.com"><Image src={assets.facebook_icon} alt='' width={40} /></Link>
-                <Link href="https://www.twitter.com"><Image src={assets.twitter_icon} alt='' width={40} /></Link>
-                <Link href="https://www.googleplus.com"><Image src={assets.googleplus_icon} alt='' width={40} /></Link>
+                <Link className='transition-all duration-300 hover:scale-110' href="https://www.facebook.com"><Image src={assets.facebook_icon} alt='' width={40} /></Link>
+                <Link className='transition-all duration-300 hover:scale-110' href="https://www.twitter.com"><Image src={assets.twitter_icon} alt='' width={40} /></Link>
+                <Link className='transition-all duration-300 hover:scale-110' href="https://www.googleplus.com"><Image src={assets.googleplus_icon} alt='' width={40} /></Link>
             </div>
         </div>
     );
