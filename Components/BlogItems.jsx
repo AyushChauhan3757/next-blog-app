@@ -22,7 +22,7 @@ const BlogItems = ({ title, description, category, image }) => {
       <div className="p-5">
         <h5 className='mb-2 text-lg font-medium'>{title}</h5>
         <p className='mb-3 text-sm tracking-tight text-grey-700'>{description}</p>
-        <div className='inline-flex items-center py-2 font-semibolld text-center'>
+        <div className='inline-flex items-center py-2 font-semibolld text-center hover:underline'>
           Read More <Image src={assets.arrow} alt='' width={12} className='ml-2' />
         </div>
       </div>
