@@ -12,7 +12,10 @@ const Header = () => {
                 <Image src={assets.logo} width={180} alt='' className='w-[130px] sm:w-auto'/>
 
                 {/* --- Getting Started --- */}
-                <button className='flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6 border border-solid border-black shadow-[-4px_4px_0px_#000000] hover:shadow-[-8px_8px_0px_#000000] hover:translate-y-[-2px] transition duration-300 ease-in-out active:shadow-[-4px_4px_0px_#000000] active:translate-y-[2px]'>Get Started <Image src={assets.arrow}/> </button>
+                <button className='flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6 border border-solid border-black shadow-[-4px_4px_0px_#000000] hover:shadow-[-8px_8px_0px_#000000] hover:translate-y-[-2px] transition duration-300 ease-in-out active:shadow-[-4px_4px_0px_#000000] active:translate-y-[2px]'>
+                    Get Started 
+                    <Image src={assets.arrow} alt='' /> 
+                </button>
             </div>
 
             <div className='text-center my-8'>
