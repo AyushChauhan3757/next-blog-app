@@ -36,10 +36,10 @@ const Page = ({ params }) => {
                     <h1 className='text-2xl sm:text-5xl font-semibold max-w-[700px] mx-auto'>{data.title}</h1>
                     {/* Author Info */}
                     {/* Need To Add Profile Section */}
-                    <Link href='/' className='transtion-all duration-300 hover:scale-125  hover:underline'>
+                    <div className='transtion-all duration-300 hover:scale-125  hover:underline'>
                         <Image src={data.author_img} width={60} height={60} alt='' className='mx-auto mt-6 border border-white rounded-full ' />
                         <p className='mt-1 pb-2 text-lg max-w-[740px] mx-auto'>{data.author}</p>
-                    </Link>
+                    </div>
                 </div>
             </div>
             {/* --- Blog Content --- */}
