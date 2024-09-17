@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import { assets, blog_data } from '@/Assets/assets';
 import Footer from '@/Components/Footer';
 import Head from '@/Components/Head';
@@ -22,7 +22,7 @@ const Page = ({ params }) => {
 
     useEffect(() => {
         fetchBlogData();
-    },[]);
+    },[])
 
     return (
         data ? 
