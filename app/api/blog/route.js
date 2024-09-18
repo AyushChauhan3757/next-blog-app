@@ -16,31 +16,32 @@ export async function GET(request){
 }
 
 export async function POST(request){
+    // Getting the form data
     const formData= await request.formData();
     const timestamp= Date.now();
 
+    // Getting the image data
     const image= formData.get('image');
     const imageByteData= await image.arrayBuffer();
     const buffer= Buffer.from(imageByteData);
     const path= `./public/${timestamp}_${image.name}`;
+    // Saving the image to the public folder
     await writeFile(path,buffer);
     const imgUrl= `/${timestamp}_${image.name}`;
-    
-    // creating blog Data Object
 
-    const blogData ={
+    // Creating the blog data
+    const blogData = new blogModel({
         title: `${formData.get('title')}`,
         description: `${formData.get('description')}`,
         category: `${formData.get('category')}`,
-        author:`${formData.get('author')}`,
+        author: `${formData.get('author')}`,
         image: `${imgUrl}`,
         authorImg: `${formData.get('authorImg')}`
-    
-    }
+    });
 
-    // Saved the Data in the DataBase
-    await blogData.create(blogData);
-    console.log("Blog-Saved");
+    // Saving the blog data
+    await blogData.save();
+    console.log("Blog Saved");
 
-    return NextResponse.json({success:true, msg:"Blog Added"});
+    return NextResponse.json({ success:true, msg:"Blog Added" });
 }
