@@ -1,51 +1,46 @@
 import connectDB from "@/lib/config/db";
-import { writeFile } from "fs/promises";
-import { Buffer } from "buffer"; // Ensure Buffer is imported
-import path from 'path'; // Import path to resolve absolute paths
-
+import blogModel from "@/lib/models/blogModel";
+import {writeFile} from 'fs/promises'
+import { title } from "process";
 const { NextResponse } = require("next/server");
 
-// Load DB
-const loadDB = async () => {
+
+const LoadDB = async() => {
     await connectDB();
-};
+}
+LoadDB();
 
-loadDB();
+export async function GET(request){
 
-// API Route - GET
-export async function GET(request) {
-    return NextResponse.json({ message: "API Working" });
+    return NextResponse.json({msg:"API Working"});
 }
 
-// API Route - POST
-export async function POST(request) {
-    try {
-        // Get form data
-        const formData = await request.formData();
-        const timestamp = Date.now();
+export async function POST(request){
+    const formData= await request.formData();
+    const timestamp= Date.now();
 
-        // Get image data
-        const image = formData.get('image');
-        if (!image) {
-            return NextResponse.json({ error: "Image not found" }, { status: 400 });
-        }
+    const image= formData.get('image');
+    const imageByteData= await image.arrayBuffer();
+    const buffer= Buffer.from(imageByteData);
+    const path= `./public/${timestamp}_${image.name}`;
+    await writeFile(path,buffer);
+    const imgUrl= `/${timestamp}_${image.name}`;
+    
+    // creating blog Data Object
 
-        // Convert image data to buffer
-        const imageByteData = await image.arrayBuffer();
-        const buffer = Buffer.from(imageByteData);
-
-        // Define absolute file path and name
-        const filePath = path.join(process.cwd(), 'public', `${timestamp}_${image.name}`);
-
-        // Save image to public folder
-        await writeFile(filePath, buffer);
-
-        // Construct the image URL for response
-        const imageURL = `/${timestamp}_${image.name}`;
-        return NextResponse.json({ imageURL });
-
-    } catch (error) {
-        console.error("Error details:", error); // Detailed error logging
-        return NextResponse.json({ error: "Failed to upload image" }, { status: 500 });
+    const blogData ={
+        title: `${formData.get('title')}`,
+        description: `${formData.get('description')}`,
+        category: `${formData.get('category')}`,
+        author:`${formData.get('author')}`,
+        image: `${imgUrl}`,
+        authorImg: `${formData.get('authorImg')}`
+    
     }
+
+    // Saved the Data in the DataBase
+    await blogData.create(blogData);
+    console.log("Blog-Saved");
+
+    return NextResponse.json({success:true, msg:"Blog Added"});
 }
