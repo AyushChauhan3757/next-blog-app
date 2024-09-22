@@ -2,6 +2,7 @@
 import { assets, blog_data } from '@/Assets/assets';
 import Footer from '@/Components/Footer';
 import Head from '@/Components/Head';
+import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -10,14 +11,13 @@ const Page = ({ params }) => {
 
     // Storing the blog data in a variable
     const [data, setData] = useState(null);
-    const fetchBlogData = () => {
-        for (let i = 0; i < blog_data.length; i++) {
-            if (blog_data[i].id === Number(params.id)) {
-                setData(blog_data[i]);
-                console.log(blog_data[i]);
-                break;
-            }
-        } 
+    const fetchBlogData = async () => {
+       const response = await axios.get('/api/blog',{
+        params:{
+            id:params.id
+        }
+       })
+       setData(response.data);
     }
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const Page = ({ params }) => {
                     {/* Author Info */}
                     {/* Need To Add Profile Section */}
                     <div className='transtion-all duration-300 hover:scale-125  hover:underline'>
-                        <Image src={data.author_img} width={60} height={60} alt='' className='mx-auto mt-6 border border-white rounded-full ' />
+                        <Image src={data.authorImg} width={60} height={60} alt='' className='mx-auto mt-6 border border-white rounded-full ' />
                         <p className='mt-1 pb-2 text-lg max-w-[740px] mx-auto'>{data.author}</p>
                     </div>
                 </div>

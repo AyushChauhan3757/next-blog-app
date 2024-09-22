@@ -13,10 +13,17 @@ LoadDB();
 // For Getting The Blog Data
 export async function GET(request){
 
-    // Getting All The Blogs
-    const blogs = await blogModel.find({});
+    const blogId= request.nextUrl.searchParams.get("id");
 
-    return NextResponse.json({ blogs });
+        if(blogId){
+            const blog = await blogModel.findById(blogId);
+            return NextResponse.json(blog);
+        }else{
+            const blogs = await blogModel.find({});
+
+            return NextResponse.json({ blogs });
+        }
+   
 }
 
 // For Uploading The Blog Data
