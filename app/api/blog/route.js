@@ -4,6 +4,9 @@ import {writeFile} from 'fs/promises'
 import { title } from "process";
 const { NextResponse } = require("next/server");
 
+// 
+const fs = require('fs');
+
 
 const LoadDB = async() => {
     await connectDB();
@@ -56,4 +59,13 @@ export async function POST(request){
     console.log("Blog Saved");
 
     return NextResponse.json({ success:true, msg:"Blog Added" });
+}
+
+// API Endpoint For Deleting The Blog
+export async function DELETE(request) {
+    const id = await request.nextUrl.searchParams.get("id");
+    const blog = await blogModel.findById(id);
+    fs.unlink(`./public${blog.image}`, () => {});
+    await blogModel.findByIdAndDelete(id);
+    return NextResponse.json({ success:true, msg:"Blog Deleted" });
 }
